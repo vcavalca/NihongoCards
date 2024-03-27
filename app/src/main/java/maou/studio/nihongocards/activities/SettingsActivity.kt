@@ -69,6 +69,11 @@ class SettingsActivity : AppCompatActivity() {
             override fun onStopTrackingTouch(seekBar: SeekBar?) {}
         })
 
+        val packageName = applicationContext.packageName
+        val packageInfo = packageManager.getPackageInfo(packageName, 0)
+        val version = packageInfo.versionName
+        binding.versionValueTextView.text = version
+
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)

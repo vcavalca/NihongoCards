@@ -4,14 +4,15 @@
 
     <!-- Main Activity Layout -->
     <string name="game_link">Começar</string>
-    <string name="settings_link">Opções</string>
+    <string name="settings_link">Configurações</string>
     <string name="aoi_kuma">Aoi Kuma: Nihongo Cards</string>
 
     <!-- Options Activity Layout -->
-    <string name="settings_title">Opções</string>
+    <string name="settings_title">Configurações</string>
     <string name="volume_label">Volume da Música</string>
     <string name="include_hiragana">Hiragana</string>
     <string name="include_katakana">Katakana</string>
+    <string name="version">Version:</string>
 
     <!-- Options Activity -->
     <string name="volume_value_format">%d%%</string>

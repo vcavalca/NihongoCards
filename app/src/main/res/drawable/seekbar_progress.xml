@@ -18,8 +18,8 @@
             android:gravity="left">
             <shape android:shape="rectangle">
                 <gradient android:angle="270"
-                    android:startColor="@color/dark_grey"
-                    android:endColor="@color/light_grey"
+                    android:startColor="@color/dark_blue"
+                    android:endColor="@color/light_blue"
                     android:type="linear"/>
                 <corners android:radius="8dp"/>
             </shape>
