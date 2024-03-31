@@ -12,7 +12,7 @@
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:layout_margin="16dp"
-        android:background="@drawable/card_background"
+        android:background="@drawable/card_front"
         android:gravity="center"
         android:textColor="@android:color/black"
         android:textSize="125sp"
