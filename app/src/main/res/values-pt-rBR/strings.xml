@@ -13,6 +13,7 @@
     <string name="include_hiragana">Hiragana</string>
     <string name="include_katakana">Katakana</string>
     <string name="version">Versão:</string>
+    <string name="select_at_least_one_alphabet">Por favor, selecione pelo menos uma opção de alfabeto antes de sair.</string>
 
     <!-- Options Activity -->
     <string name="volume_value_format">%d%%</string>
