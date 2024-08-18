@@ -1,66 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.SettingsActivity">
+    android:theme="@style/ThemeOverlay.NihongoCards.FullscreenContainer"
+    tools:context=".fragments.SettingsFragment">
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/titleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         android:fontFamily="@font/cyber_way_riders"
         android:text="@string/settings_title"
         android:textColor="@color/dark_blue"
         android:textSize="28sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/hiraganaCheckBox"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textStyle="bold" />
 
     <com.google.android.material.checkbox.MaterialCheckBox
         android:id="@+id/hiraganaCheckBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/titleTextView"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:padding="16dp"
         android:text="@string/include_hiragana"
-        app:buttonTint="@color/checkbox_color"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleTextView" />
+        app:buttonTint="@color/checkbox_color" />
 
     <com.google.android.material.checkbox.MaterialCheckBox
         android:id="@+id/katakanaCheckBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/hiraganaCheckBox"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:padding="16dp"
         android:text="@string/include_katakana"
-        app:buttonTint="@color/checkbox_color"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/hiraganaCheckBox" />
+        app:buttonTint="@color/checkbox_color" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/volumeLabelTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/katakanaCheckBox"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="@string/volume_label"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/katakanaCheckBox" />
+        android:text="@string/volume_label" />
 
     <SeekBar
         android:id="@+id/volumeSeekBar"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/volumeLabelTextView"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
@@ -68,43 +63,34 @@
         android:padding="18dp"
         android:progressDrawable="@drawable/seekbar_progress"
         android:splitTrack="false"
-        android:thumb="@drawable/seekbar_thumb"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/volumeLabelTextView" />
+        android:thumb="@drawable/seekbar_thumb" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/volumeValueTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/volumeSeekBar"
+        android:layout_alignParentEnd="true"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/volumeSeekBar" />
+        android:layout_marginEnd="16dp" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/versionTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginBottom="18dp"
+        android:layout_above="@id/versionValueTextView"
+        android:layout_centerHorizontal="true"
         android:text="@string/version"
         android:textColor="@color/black"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:textSize="12sp" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/versionValueTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         android:textColor="@color/black"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/versionTextView" />
+        android:textSize="12sp" />
 
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

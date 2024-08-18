@@ -1,22 +1,23 @@
 package asuka.jyuku.nihongocards.activities
 
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import android.media.MediaPlayer
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.core.content.ContentProviderCompat.requireContext
 import asuka.jyuku.nihongocards.R
+import asuka.jyuku.nihongocards.classes.PreferencesManager
+import asuka.jyuku.nihongocards.classes.SharedViewModel
 import asuka.jyuku.nihongocards.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var mediaPlayer: MediaPlayer
-    private lateinit var sharedPreferences: SharedPreferences
-    private var currentPosition: Int = 0
+    private lateinit var preferencesPreferences: PreferencesManager
+    private val sharedViewModel : SharedViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,53 +29,30 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // SharedPreferences
-        sharedPreferences = getSharedPreferences("Settings", Context.MODE_PRIVATE)
+        preferencesPreferences = PreferencesManager(this)
+        val savedVolume = preferencesPreferences.getVolume()
 
         // Initialize MusicPlayerManager
-        mediaPlayer = MediaPlayer.create(this, R.raw.soudtrack)
-        mediaPlayer.isLooping = true
-        setVolumeFromPreferences()
-        restoreCurrentPosition()
-        mediaPlayer.start()
-
-        binding.startButton.setOnClickListener {
-            saveCurrentPosition()
-            startActivity(Intent(this, GameActivity::class.java).apply {
-                putExtra("currentPosition", mediaPlayer.currentPosition)
-            })
+        mediaPlayer = MediaPlayer.create(this, R.raw.soudtrack).apply {
+            isLooping = true
+            setVolume(savedVolume, savedVolume)
+            start()
         }
 
-        binding.settingsButton.setOnClickListener {
-            saveCurrentPosition()
-            startActivity(Intent(this, SettingsActivity::class.java).apply {
-                putExtra("currentPosition", mediaPlayer.currentPosition)
-            })
+        // Observe volume changes
+        sharedViewModel.volume.observe(this) { newVolume ->
+            mediaPlayer.setVolume(newVolume, newVolume)
         }
 
-        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
     }
 
     override fun onPause() {
         super.onPause()
-        if (mediaPlayer.isPlaying) {
-            mediaPlayer.pause()
-        }
-    }
-
-    override fun onStop() {
-        super.onStop()
-        if (mediaPlayer.isPlaying) {
-            mediaPlayer.stop()
-        }
+        mediaPlayer.pause()
     }
 
     override fun onResume() {
         super.onResume()
-        setVolumeFromPreferences()
         if (!mediaPlayer.isPlaying) {
             mediaPlayer.start()
         }
@@ -82,24 +60,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        if (mediaPlayer.isPlaying) {
-            mediaPlayer.release()
-        }
-    }
-
-    private fun setVolumeFromPreferences() {
-        val savedVolume = sharedPreferences.getFloat("volume", 0.5f)
-        mediaPlayer.setVolume(savedVolume, savedVolume)
-    }
-
-    private fun saveCurrentPosition() {
-        val currentPosition = mediaPlayer.currentPosition
-        sharedPreferences.edit().putInt("currentPosition", currentPosition).apply()
-    }
-
-    private fun restoreCurrentPosition() {
-        currentPosition = sharedPreferences.getInt("currentPosition", 0)
-        mediaPlayer.seekTo(currentPosition)
+        mediaPlayer.release()
     }
 
 }
