@@ -1,29 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <string name="app_name">Aoikuma: Nihongo Cards</string>
+    <string name="app_name">Aoikuma: NihongoCards</string>
 
     <!-- Main Activity Layout -->
-    <string name="game_link">Começar</string>
+    <string name="game_link">Iniciar Jogo</string>
     <string name="settings_link">Configurações</string>
 
-    <!-- Options Activity Layout -->
+    <!-- Main Fragment -->
+    <string name="no_alphabet_selected">Escolha um alfabeto ou usaremos Hiragana. Verifique nas configurações.</string>
+
+    <!-- Settings Layout -->
     <string name="settings_title">Configurações</string>
     <string name="volume_label">Volume da Música</string>
     <string name="volume_switch">Música</string>
     <string name="include_hiragana">Hiragana</string>
     <string name="include_katakana">Katakana</string>
     <string name="version">Versão:</string>
-    <string name="select_at_least_one_alphabet">Por favor, selecione pelo menos uma opção de alfabeto antes de sair.</string>
 
-    <!-- Options Activity -->
+    <!-- Settings Fragment -->
     <string name="volume_value_format">%d%%</string>
 
-    <!-- Game Activity -->
-    <string name="end_game">Fim de Jogo</string>
-    <string name="retry">Quer jogar de novo?</string>
+    <!-- Game Fragment -->
+    <string name="end_game">Fim do Jogo</string>
+    <string name="retry">Deseja jogar novamente?</string>
     <string name="dialog_no">Não</string>
-    <string name="dialog_yes">sim</string>
+    <string name="dialog_yes">Sim</string>
     <string name="card_progress">%1$d/%2$d</string>
 
 </resources>

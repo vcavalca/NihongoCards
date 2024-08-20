@@ -5,19 +5,21 @@
     <string name="game_link">Start Game</string>
     <string name="settings_link">Settings</string>
 
-    <!-- Settings Fragment -->
+    <!-- Main Fragment -->
+    <string name="no_alphabet_selected">Pick an alphabet or we\'ll use Hiragana. Check settings.</string>
+
+    <!-- Settings Layout -->
     <string name="settings_title">Settings</string>
     <string name="volume_label">Music Volume</string>
     <string name="volume_switch">Music</string>
     <string name="include_hiragana">Hiragana</string>
     <string name="include_katakana">Katakana</string>
     <string name="version">Version:</string>
-    <string name="select_at_least_one_alphabet">Please select at least one alphabet option before exiting.</string>
 
-    <!-- Settings Activity -->
+    <!-- Settings Fragment -->
     <string name="volume_value_format">%d%%</string>
 
-    <!-- Game Activity -->
+    <!-- Game Fragment -->
     <string name="end_game">End of Game</string>
     <string name="retry">Do you want to play again?</string>
     <string name="dialog_no">No</string>

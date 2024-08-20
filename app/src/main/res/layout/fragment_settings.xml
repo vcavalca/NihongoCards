@@ -64,10 +64,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_toEndOf="@+id/volumeLabelTextView"
-            android:enabled="true"
-            app:trackTint="@color/switch_track_color"
+            android:checked="false"
             android:clickable="true"
-            android:checked="false"/>
+            android:enabled="true"
+            app:trackTint="@color/switch_track_color" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

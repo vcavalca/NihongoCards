@@ -10,6 +10,9 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import asuka.jyuku.nihongocards.R
 import asuka.jyuku.nihongocards.databinding.FragmentMainBinding
+import asuka.jyuku.nihongocards.objects.HiraganaAlphabet
+import asuka.jyuku.nihongocards.objects.KatakanaAlphabet
+import com.google.android.material.snackbar.Snackbar
 
 class MainFragment : Fragment(R.layout.fragment_main) {
 
@@ -25,6 +28,11 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
 
         binding.startButton.setOnClickListener {
+            if (!HiraganaAlphabet.isPlaying() && !KatakanaAlphabet.isPlaying()) {
+                val view = requireView()
+                Snackbar.make(view, getString(R.string.no_alphabet_selected), Snackbar.LENGTH_SHORT)
+                    .show()
+            }
             findNavController().navigate(R.id.action_mainFragment_to_gameFragment)
         }
 

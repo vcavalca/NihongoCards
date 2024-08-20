@@ -1,29 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <string name="app_name">Aoi Kuma: Nihongo Cards</string>
+    <string name="app_name">葵熊 日本語カード</string>
 
     <!-- Main Activity Layout -->
-    <string name="game_link">Start Game</string>
-    <string name="settings_link">Settings</string>
+    <string name="game_link">ゲーム開始</string>
+    <string name="settings_link">設定</string>
 
-    <!-- Settings Activity Layout -->
-    <string name="settings_title">Settings</string>
-    <string name="volume_label">Music Volume</string>
-    <string name="volume_switch">Music</string>
-    <string name="include_hiragana">Hiragana</string>
-    <string name="include_katakana">Katakana</string>
-    <string name="version">Version:</string>
-    <string name="select_at_least_one_alphabet">Please select at least one alphabet option before exiting.</string>
+    <!-- Main Fragment -->
+    <string name="no_alphabet_selected">文字を選んでください。選ばない場合はひらがながデフォルトになります。設定で変更できます</string>
 
-    <!-- Settings Activity -->
+    <!-- Settings Layout -->
+    <string name="settings_title">設定</string>
+    <string name="volume_label">音楽の音量</string>
+    <string name="volume_switch">音楽</string>
+    <string name="include_hiragana">ひらがな</string>
+    <string name="include_katakana">カタカナ</string>
+    <string name="version">バージョン:</string>
+
+    <!-- Settings Fragment -->
     <string name="volume_value_format">%d%%</string>
 
-    <!-- Game Activity -->
-    <string name="end_game">End of Game</string>
-    <string name="retry">Do you want to play again?</string>
-    <string name="dialog_no">No</string>
-    <string name="dialog_yes">Yes</string>
+    <!-- Game Fragment -->
+    <string name="end_game">ゲーム終了</string>
+    <string name="retry">もう一度プレイしますか？</string>
+    <string name="dialog_no">いいえ</string>
+    <string name="dialog_yes">はい</string>
     <string name="card_progress">%1$d/%2$d</string>
 
 </resources>

@@ -30,6 +30,10 @@ class GameFragment : Fragment(R.layout.fragment_game) {
         // Inflate the layout for this fragment
         _binding = FragmentGameBinding.inflate(inflater, container, false)
 
+        if (!HiraganaAlphabet.isPlaying() && !KatakanaAlphabet.isPlaying()) {
+            HiraganaAlphabet.setPlaying(true)
+        }
+
         // Configuration cards
         alphabet = getShuffledAlphabet()
         totalCards = alphabet.size
