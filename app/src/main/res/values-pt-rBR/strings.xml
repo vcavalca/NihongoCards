@@ -10,6 +10,7 @@
     <!-- Options Activity Layout -->
     <string name="settings_title">Configurações</string>
     <string name="volume_label">Volume da Música</string>
+    <string name="volume_switch">Música</string>
     <string name="include_hiragana">Hiragana</string>
     <string name="include_katakana">Katakana</string>
     <string name="version">Versão:</string>

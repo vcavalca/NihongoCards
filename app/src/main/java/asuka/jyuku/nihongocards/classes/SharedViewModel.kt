@@ -5,12 +5,17 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class SharedViewModel : ViewModel() {
+    private val _volume = MutableLiveData<Int>()
+    private val _isPlaying = MutableLiveData<Boolean>()
 
-    private val _volume = MutableLiveData<Float>()
-    val volume: LiveData<Float> get() = _volume
+    val volume: LiveData<Int> get() = _volume
+    val isPlaying: LiveData<Boolean> get() = _isPlaying
 
-    fun setVolume(volume: Float) {
+    fun setVolume(volume: Int) {
         _volume.value = volume
     }
 
+    fun setPlaying(isPlaying: Boolean) {
+        _isPlaying.value = isPlaying
+    }
 }

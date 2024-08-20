@@ -42,16 +42,46 @@
         android:text="@string/include_katakana"
         app:buttonTint="@color/checkbox_color" />
 
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/musicOptions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/katakanaCheckBox"
+        android:layout_marginTop="16dp">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/labelTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/katakanaCheckBox"
+            android:layout_marginStart="16dp"
+            android:gravity="center"
+            android:text="@string/volume_switch" />
+
+        <com.google.android.material.materialswitch.MaterialSwitch
+            android:id="@+id/toggleMusicSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_toEndOf="@+id/volumeLabelTextView"
+            android:enabled="true"
+            app:trackTint="@color/switch_track_color"
+            android:clickable="true"
+            android:checked="false"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/volumeLabelTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/katakanaCheckBox"
+        android:layout_below="@id/musicOptions"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:gravity="center"
         android:text="@string/volume_label" />
 
-    <SeekBar
+    <androidx.appcompat.widget.AppCompatSeekBar
         android:id="@+id/volumeSeekBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

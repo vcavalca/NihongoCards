@@ -1,7 +1,6 @@
 package asuka.jyuku.nihongocards.fragments
 
 import android.app.AlertDialog
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -22,8 +21,6 @@ class GameFragment : Fragment(R.layout.fragment_game) {
     private lateinit var alphabet: List<String>
     private var currentIndex = 0
     private var totalCards = 0
-    private lateinit var sharedPreferences: SharedPreferences
-    private var currentPosition: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,9 +29,6 @@ class GameFragment : Fragment(R.layout.fragment_game) {
     ): View {
         // Inflate the layout for this fragment
         _binding = FragmentGameBinding.inflate(inflater, container, false)
-
-        // SharedPreferences
-//        sharedPreferences = getSharedPreferences("Settings", Context.MODE_PRIVATE)
 
         // Configuration cards
         alphabet = getShuffledAlphabet()
