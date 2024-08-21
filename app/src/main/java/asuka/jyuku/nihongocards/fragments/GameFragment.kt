@@ -91,7 +91,7 @@ class GameFragment : Fragment(R.layout.fragment_game) {
             .setPositiveButton(getString(R.string.dialog_yes)) { _, _ ->
                 restartGame()
             }.setNegativeButton(getString(R.string.dialog_no)) { _, _ ->
-                //finish()
+                requireActivity().finish()
             }.setCancelable(false).show()
     }
 
