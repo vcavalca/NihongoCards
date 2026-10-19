@@ -1,104 +1,125 @@
 package asuka.jyuku.nihongocards.fragments
 
-import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import asuka.jyuku.nihongocards.R
+import asuka.jyuku.nihongocards.classes.GameState
+import asuka.jyuku.nihongocards.classes.GameViewModel
+import asuka.jyuku.nihongocards.classes.applySystemBarsPadding
 import asuka.jyuku.nihongocards.databinding.FragmentGameBinding
-import asuka.jyuku.nihongocards.objects.HiraganaAlphabet
-import asuka.jyuku.nihongocards.objects.KatakanaAlphabet
+import asuka.jyuku.nihongocards.nihongoApp
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
-class GameFragment : Fragment(R.layout.fragment_game) {
+class GameFragment : Fragment() {
 
     private var _binding: FragmentGameBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var alphabet: List<String>
-    private var currentIndex = 0
-    private var totalCards = 0
+    private val viewModel: GameViewModel by viewModels()
+
+    private var endDialog: AlertDialog? = null
+    private var isFlipping = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
         _binding = FragmentGameBinding.inflate(inflater, container, false)
-
-        if (!HiraganaAlphabet.isPlaying() && !KatakanaAlphabet.isPlaying()) {
-            HiraganaAlphabet.setPlaying(true)
-        }
-
-        // Configuration cards
-        alphabet = getShuffledAlphabet()
-        totalCards = alphabet.size
-
-        showNextCharacter()
-
-        binding.cardTextView.setOnClickListener {
-            if (currentIndex < alphabet.size - 1) {
-                currentIndex++
-                showNextCharacter()
-            } else {
-                showEndOfGameDialog()
-            }
-        }
-
-        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { view, insets ->
-            val systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            view.setPadding(0, systemBarsInsets.top, 0, 0)
-            insets
-        }
-
         return binding.root
     }
 
-    private fun getShuffledAlphabet(): List<String> {
-        val hiragana =
-            if (HiraganaAlphabet.isPlaying()) HiraganaAlphabet.getShuffledAlphabet() else emptyList()
-        val katakana =
-            if (KatakanaAlphabet.isPlaying()) KatakanaAlphabet.getShuffledAlphabet() else emptyList()
-        return if (hiragana.isNotEmpty() && katakana.isNotEmpty()) {
-            shuffleAlphabets(hiragana, katakana)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.root.applySystemBarsPadding()
+
+        isFlipping = false
+        binding.cardTextView.cameraDistance = CAMERA_DISTANCE * resources.displayMetrics.density
+        binding.cardTextView.setOnClickListener { onCardClicked() }
+
+        viewModel.startIfNeeded(nihongoApp.preferences.selectedScripts)
+        viewModel.state.observe(viewLifecycleOwner) { render(it) }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding.cardTextView.animate().cancel()
+        endDialog?.dismiss()
+        endDialog = null
+        _binding = null
+    }
+
+    private fun onCardClicked() {
+        val state = viewModel.state.value ?: return
+        if (isFlipping || state.isFinished) return
+
+        if (state.isFlipped && state.isLastCard) {
+            // Last card already revealed: finish without flipping.
+            viewModel.onCardTapped()
         } else {
-            hiragana + katakana
+            flipCard { viewModel.onCardTapped() }
         }
     }
 
-    private fun shuffleAlphabets(hiragana: List<String>, katakana: List<String>): List<String> {
-        val combinedList = hiragana + katakana
-        return combinedList.shuffled()
+    /** Turns the card halfway, swaps its content, then turns it back. */
+    private fun flipCard(onHalfway: () -> Unit) {
+        isFlipping = true
+        val card = binding.cardTextView
+        card.animate()
+            .rotationY(90f)
+            .setDuration(FLIP_HALF_DURATION_MS)
+            .withEndAction {
+                onHalfway()
+                card.rotationY = -90f
+                card.animate()
+                    .rotationY(0f)
+                    .setDuration(FLIP_HALF_DURATION_MS)
+                    .withEndAction { isFlipping = false }
+                    .start()
+            }
+            .start()
     }
 
-    private fun showNextCharacter() {
-        binding.cardTextView.text = alphabet[currentIndex]
-        updateCounterTextView()
-    }
+    private fun render(state: GameState) {
+        with(binding) {
+            counterTextView.text = getString(R.string.card_progress, state.position, state.total)
+            if (state.isFlipped) {
+                cardTextView.text = state.current.romaji
+                cardTextView.setBackgroundResource(R.drawable.card_answer)
+                hintTextView.setText(if (state.isLastCard) R.string.tap_to_finish else R.string.tap_for_next)
+            } else {
+                cardTextView.text = state.current.character
+                cardTextView.setBackgroundResource(R.drawable.card_front)
+                hintTextView.setText(R.string.tap_to_reveal)
+            }
+        }
 
-    private fun updateCounterTextView() {
-        val progress = currentIndex + 1
-        binding.counterTextView.text = getString(R.string.card_progress, progress, totalCards)
+        if (state.isFinished) showEndOfGameDialog()
     }
 
     private fun showEndOfGameDialog() {
-        AlertDialog.Builder(context).setTitle(getString(R.string.end_game))
-            .setMessage(getString(R.string.retry))
-            .setPositiveButton(getString(R.string.dialog_yes)) { _, _ ->
-                restartGame()
-            }.setNegativeButton(getString(R.string.dialog_no)) { _, _ ->
-                requireActivity().finish()
-            }.setCancelable(false).show()
+        if (endDialog?.isShowing == true) return
+        endDialog = MaterialAlertDialogBuilder(requireContext())
+            .setTitle(R.string.end_game)
+            .setMessage(R.string.retry)
+            .setPositiveButton(R.string.dialog_yes) { _, _ ->
+                viewModel.restart(nihongoApp.preferences.selectedScripts)
+            }
+            .setNegativeButton(R.string.dialog_no) { _, _ ->
+                findNavController().popBackStack()
+            }
+            .setCancelable(false)
+            .show()
     }
 
-    private fun restartGame() {
-        currentIndex = 0
-        alphabet = getShuffledAlphabet()
-        showNextCharacter()
+    private companion object {
+        const val FLIP_HALF_DURATION_MS = 150L
+        const val CAMERA_DISTANCE = 8000f
     }
-
 }

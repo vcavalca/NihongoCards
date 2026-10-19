@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:theme="@style/ThemeOverlay.NihongoCards.FullscreenContainer"
     tools:context=".fragments.SettingsFragment">
 
     <com.google.android.material.textview.MaterialTextView
@@ -111,7 +110,7 @@
         android:layout_above="@id/versionValueTextView"
         android:layout_centerHorizontal="true"
         android:text="@string/version"
-        android:textColor="@color/black"
+        android:textColor="?android:attr/textColorSecondary"
         android:textSize="12sp" />
 
     <com.google.android.material.textview.MaterialTextView
@@ -120,7 +119,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:textColor="@color/black"
+        android:textColor="?android:attr/textColorSecondary"
         android:textSize="12sp" />
 
 </RelativeLayout>

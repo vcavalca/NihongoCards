@@ -1,92 +1,93 @@
 package asuka.jyuku.nihongocards.fragments
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CompoundButton
 import android.widget.SeekBar
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import asuka.jyuku.nihongocards.BuildConfig
 import asuka.jyuku.nihongocards.R
-import asuka.jyuku.nihongocards.classes.SharedViewModel
+import asuka.jyuku.nihongocards.classes.Script
+import asuka.jyuku.nihongocards.classes.applySystemBarsPadding
 import asuka.jyuku.nihongocards.databinding.FragmentSettingsBinding
-import asuka.jyuku.nihongocards.objects.HiraganaAlphabet
-import asuka.jyuku.nihongocards.objects.KatakanaAlphabet
+import asuka.jyuku.nihongocards.nihongoApp
+import com.google.android.material.snackbar.Snackbar
 
-class SettingsFragment : Fragment(R.layout.fragment_settings) {
+class SettingsFragment : Fragment() {
 
     private var _binding: FragmentSettingsBinding? = null
     private val binding get() = _binding!!
 
-    private val sharedViewModel: SharedViewModel by activityViewModels()
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-
         _binding = FragmentSettingsBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
-        val sharedPreferences =
-            requireActivity().getSharedPreferences("music_prefs", Context.MODE_PRIVATE)
-        val isMusicOn = sharedPreferences.getBoolean("music_on", false)
-        val volume = sharedPreferences.getInt("music_volume", 50)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.root.applySystemBarsPadding()
 
-        binding.volumeSeekBar.progress = volume
-        binding.toggleMusicSwitch.isChecked = isMusicOn
-        binding.volumeValueTextView.text = getString(R.string.volume_value_format, volume)
+        setUpMusic()
+        setUpAlphabets()
 
-        sharedViewModel.isPlaying.observe(viewLifecycleOwner, Observer { isPlaying ->
-            binding.toggleMusicSwitch.isChecked = isPlaying
-        })
+        binding.versionValueTextView.text = BuildConfig.VERSION_NAME
+    }
 
-        sharedViewModel.volume.observe(viewLifecycleOwner, Observer { newVolume ->
-            binding.volumeSeekBar.progress = newVolume
-            binding.volumeValueTextView.text = getString(R.string.volume_value_format, newVolume)
-        })
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private fun setUpMusic() {
+        val musicPlayer = nihongoApp.musicPlayer
+
+        binding.toggleMusicSwitch.isChecked = musicPlayer.isEnabled
+        binding.volumeSeekBar.progress = musicPlayer.volume
+        updateVolumeLabel(musicPlayer.volume)
 
         binding.toggleMusicSwitch.setOnCheckedChangeListener { _, isChecked ->
-            sharedViewModel.setPlaying(isChecked)
+            musicPlayer.setEnabled(isChecked)
         }
 
         binding.volumeSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                sharedViewModel.setVolume(progress)
+                if (fromUser) musicPlayer.setVolume(progress)
+                updateVolumeLabel(progress)
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}
             override fun onStopTrackingTouch(seekBar: SeekBar?) {}
         })
-
-        // Update checkbox state
-        updateCheckBoxesState()
-
-        // Set listeners for checkboxes
-        binding.hiraganaCheckBox.setOnCheckedChangeListener { _, isChecked ->
-            HiraganaAlphabet.setPlaying(isChecked)
-        }
-        binding.katakanaCheckBox.setOnCheckedChangeListener { _, isChecked ->
-            KatakanaAlphabet.setPlaying(isChecked)
-        }
-
-        binding.versionValueTextView.text = BuildConfig.VERSION_NAME
-
-        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { view, insets ->
-            val systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            view.setPadding(0, systemBarsInsets.top, 0, 0)
-            insets
-        }
-
-        return binding.root
     }
 
-    private fun updateCheckBoxesState() {
-        binding.hiraganaCheckBox.isChecked = HiraganaAlphabet.isPlaying()
-        binding.katakanaCheckBox.isChecked = KatakanaAlphabet.isPlaying()
+    private fun setUpAlphabets() {
+        val selected = nihongoApp.preferences.selectedScripts
+        binding.hiraganaCheckBox.isChecked = Script.HIRAGANA in selected
+        binding.katakanaCheckBox.isChecked = Script.KATAKANA in selected
+
+        binding.hiraganaCheckBox.setOnCheckedChangeListener { box, _ -> onAlphabetsChanged(box) }
+        binding.katakanaCheckBox.setOnCheckedChangeListener { box, _ -> onAlphabetsChanged(box) }
     }
 
+    private fun onAlphabetsChanged(changed: CompoundButton) {
+        val selected = buildSet {
+            if (binding.hiraganaCheckBox.isChecked) add(Script.HIRAGANA)
+            if (binding.katakanaCheckBox.isChecked) add(Script.KATAKANA)
+        }
+        if (selected.isEmpty()) {
+            // At least one alphabet must stay selected: undo the change.
+            changed.isChecked = true
+            Snackbar.make(binding.root, R.string.at_least_one_alphabet, Snackbar.LENGTH_SHORT).show()
+            return
+        }
+        nihongoApp.preferences.selectedScripts = selected
+    }
+
+    private fun updateVolumeLabel(volume: Int) {
+        binding.volumeValueTextView.text = getString(R.string.volume_value_format, volume)
+    }
 }
