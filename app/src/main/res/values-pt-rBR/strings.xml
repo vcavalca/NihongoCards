@@ -6,9 +6,6 @@
     <string name="game_link">Iniciar Jogo</string>
     <string name="settings_link">Configurações</string>
 
-    <!-- Main Fragment -->
-    <string name="no_alphabet_selected">Escolha um alfabeto ou usaremos Hiragana. Verifique nas configurações.</string>
-
     <!-- Settings Layout -->
     <string name="settings_title">Configurações</string>
     <string name="volume_label">Volume da Música</string>
@@ -18,6 +15,7 @@
     <string name="version">Versão:</string>
 
     <!-- Settings Fragment -->
+    <string name="at_least_one_alphabet">Mantenha pelo menos um alfabeto selecionado</string>
     <string name="volume_value_format">%d%%</string>
 
     <!-- Game Fragment -->
@@ -26,5 +24,8 @@
     <string name="dialog_no">Não</string>
     <string name="dialog_yes">Sim</string>
     <string name="card_progress">%1$d/%2$d</string>
+    <string name="tap_to_reveal">Toque no card para ver a leitura</string>
+    <string name="tap_for_next">Toque para o próximo card</string>
+    <string name="tap_to_finish">Toque para terminar</string>
 
 </resources>

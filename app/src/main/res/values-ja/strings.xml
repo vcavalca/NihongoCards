@@ -6,9 +6,6 @@
     <string name="game_link">ゲーム開始</string>
     <string name="settings_link">設定</string>
 
-    <!-- Main Fragment -->
-    <string name="no_alphabet_selected">文字を選んでください。選ばない場合はひらがながデフォルトになります。設定で変更できます</string>
-
     <!-- Settings Layout -->
     <string name="settings_title">設定</string>
     <string name="volume_label">音楽の音量</string>
@@ -18,6 +15,7 @@
     <string name="version">バージョン:</string>
 
     <!-- Settings Fragment -->
+    <string name="at_least_one_alphabet">文字は少なくとも1つ選択してください</string>
     <string name="volume_value_format">%d%%</string>
 
     <!-- Game Fragment -->
@@ -26,5 +24,8 @@
     <string name="dialog_no">いいえ</string>
     <string name="dialog_yes">はい</string>
     <string name="card_progress">%1$d/%2$d</string>
+    <string name="tap_to_reveal">カードをタップして読み方を表示</string>
+    <string name="tap_for_next">タップして次のカードへ</string>
+    <string name="tap_to_finish">タップして終了</string>
 
 </resources>
