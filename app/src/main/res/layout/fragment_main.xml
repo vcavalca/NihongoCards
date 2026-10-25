@@ -1,44 +1,149 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_home"
+    android:fillViewport="true"
     tools:context=".fragments.MainFragment">
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/titleTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="150dp"
-        android:fontFamily="@font/cyber_way_riders"
-        android:text="@string/app_name"
-        android:textColor="@color/dark_blue"
-        android:textSize="28sp"
-        tools:ignore="VisualLintLocaleText" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/startButton"
-        android:layout_width="230dp"
-        android:layout_height="60dp"
-        android:layout_below="@id/titleTextView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="150dp"
-        android:backgroundTint="@color/dark_blue"
-        android:text="@string/game_link"
-        android:textSize="24sp" />
+        <!-- Decorative kana watermarks. -->
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/decorTopTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-24dp"
+            android:layout_marginEnd="-40dp"
+            android:alpha="0.07"
+            android:importantForAccessibility="no"
+            android:rotation="14"
+            android:text="あ"
+            android:textColor="?attr/colorPrimary"
+            android:textSize="220sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="HardcodedText" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/settingsButton"
-        android:layout_width="230dp"
-        android:layout_height="60dp"
-        android:layout_below="@id/startButton"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp"
-        android:backgroundTint="@color/dark_blue"
-        android:text="@string/settings_link"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/decorBottomTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="-36dp"
+            android:alpha="0.05"
+            android:importantForAccessibility="no"
+            android:rotation="-12"
+            android:text="カ"
+            android:textColor="?attr/colorPrimary"
+            android:textSize="200sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.6"
+            tools:ignore="HardcodedText" />
 
-</RelativeLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="@dimen/screen_padding"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_max="@dimen/content_max_width">
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:minHeight="16dp" />
+
+            <!-- The bear peeks through a round window that hides the cut at the bottom of the image. -->
+            <FrameLayout
+                android:layout_width="176dp"
+                android:layout_height="176dp"
+                android:background="@drawable/bg_mascot"
+                android:clipToOutline="true"
+                android:elevation="2dp"
+                android:foreground="@drawable/bg_mascot_ring">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/mascotImageView"
+                    android:layout_width="164dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|center_horizontal"
+                    android:layout_marginBottom="-14dp"
+                    android:adjustViewBounds="true"
+                    android:importantForAccessibility="no"
+                    app:srcCompat="@drawable/splash_img" />
+
+            </FrameLayout>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/titleTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:fontFamily="@font/cyber_way_riders"
+                android:gravity="center"
+                android:text="@string/app_name"
+                android:textColor="?attr/colorPrimary"
+                android:textSize="28sp"
+                tools:ignore="VisualLintLocaleText" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/taglineTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:breakStrategy="balanced"
+                android:gravity="center"
+                android:maxWidth="320dp"
+                android:text="@string/tagline"
+                android:textAppearance="?attr/textAppearanceBodyLarge"
+                android:textColor="?attr/colorOnSurfaceVariant" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1.2"
+                android:minHeight="32dp" />
+
+            <include
+                android:id="@+id/deckCard"
+                layout="@layout/view_deck_card" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/startButton"
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/game_link"
+                android:textAppearance="?attr/textAppearanceTitleMedium"
+                app:icon="@drawable/ic_play"
+                app:iconGravity="textStart"
+                app:iconPadding="12dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/settingsButton"
+                style="@style/Widget.Material3.Button.TonalButton"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/settings_link"
+                android:textAppearance="?attr/textAppearanceTitleSmall"
+                app:icon="@drawable/ic_settings"
+                app:iconGravity="textStart"
+                app:iconPadding="12dp" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

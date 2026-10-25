@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="md_primary">#B2C5FF</color>
+    <color name="md_on_primary">#002B74</color>
+    <color name="md_primary_container">#1546B3</color>
+    <color name="md_on_primary_container">#DAE2FF</color>
+    <color name="md_inverse_primary">#1F5FDB</color>
+    <color name="md_secondary">#BEC6DC</color>
+    <color name="md_on_secondary">#283041</color>
+    <color name="md_secondary_container">#3E4759</color>
+    <color name="md_on_secondary_container">#DAE2F9</color>
+    <color name="md_tertiary">#FFB1C2</color>
+    <color name="md_on_tertiary">#5E1128</color>
+    <color name="md_tertiary_container">#7C2840</color>
+    <color name="md_on_tertiary_container">#FFD9E0</color>
+    <color name="md_error">#FFB4AB</color>
+    <color name="md_on_error">#690005</color>
+    <color name="md_error_container">#93000A</color>
+    <color name="md_on_error_container">#FFDAD6</color>
+    <color name="md_surface">#121318</color>
+    <color name="md_on_surface">#E3E2E9</color>
+    <color name="md_surface_variant">#44464F</color>
+    <color name="md_on_surface_variant">#C4C6D0</color>
+    <color name="md_surface_dim">#121318</color>
+    <color name="md_surface_bright">#38393F</color>
+    <color name="md_surface_container_lowest">#0D0E13</color>
+    <color name="md_surface_container_low">#1A1B21</color>
+    <color name="md_surface_container">#1E1F25</color>
+    <color name="md_surface_container_high">#292A2F</color>
+    <color name="md_surface_container_highest">#34343A</color>
+    <color name="md_inverse_surface">#E3E2E9</color>
+    <color name="md_inverse_on_surface">#2F3036</color>
+    <color name="md_outline">#8E9099</color>
+    <color name="md_outline_variant">#44464F</color>
+
+    <!-- Lighter than the cards stacked behind it (surface container high). -->
+    <color name="flashcard_front">#37393F</color>
+    <color name="flashcard_back_start">#1846B0</color>
+    <color name="flashcard_back_end">#2F6FE0</color>
+    <color name="home_gradient_start">#1C2B52</color>
+    <color name="raised_surface">#1E1F25</color>
+    <color name="mascot_window">#22315C</color>
+
+</resources>

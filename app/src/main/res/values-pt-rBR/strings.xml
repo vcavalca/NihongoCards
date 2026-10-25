@@ -28,4 +28,25 @@
     <string name="tap_for_next">Toque para o próximo card</string>
     <string name="tap_to_finish">Toque para terminar</string>
 
+    <!-- Redesign -->
+    <string name="tagline">Aprenda hiragana e katakana, um card de cada vez</string>
+    <string name="current_deck">Baralho atual</string>
+    <plurals name="deck_card_count">
+        <item quantity="one">%d card</item>
+        <item quantity="many">%d cards</item>
+        <item quantity="other">%d cards</item>
+    </plurals>
+    <string name="close_game">Fechar jogo</string>
+    <string name="navigate_back">Voltar</string>
+    <string name="section_alphabets">Alfabetos</string>
+    <string name="section_sound">Som</string>
+    <string name="music_description">Trilha sonora de fundo</string>
+
+    <!-- Pronunciation -->
+    <string name="listen_pronunciation">Ouvir a pronúncia</string>
+    <string name="auto_pronounce">Pronúncia automática</string>
+    <string name="auto_pronounce_description">Fala o kana em voz alta ao virar o card</string>
+    <string name="japanese_voice_missing">A voz em japonês não está instalada</string>
+    <string name="install_voice">Instalar</string>
+
 </resources>

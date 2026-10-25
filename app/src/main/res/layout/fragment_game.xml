@@ -1,56 +1,181 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/colorSurface"
     tools:context=".fragments.GameFragment">
+
+    <!-- Top bar: close, progress through the deck and counter. -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/closeButton"
+        style="?attr/materialIconButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="@string/close_game"
+        app:icon="@drawable/ic_close"
+        app:iconTint="?attr/colorOnSurfaceVariant"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/progressIndicator"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
+        android:importantForAccessibility="no"
+        app:layout_constraintBottom_toBottomOf="@id/closeButton"
+        app:layout_constraintEnd_toStartOf="@id/counterTextView"
+        app:layout_constraintStart_toEndOf="@id/closeButton"
+        app:layout_constraintTop_toTopOf="@id/closeButton"
+        app:trackThickness="6dp"
+        app:waveAmplitude="3dp"
+        app:wavelength="28dp"
+        tools:progress="40" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/counterTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:textColor="?android:attr/textColorSecondary"
-        android:textSize="12sp"
+        android:layout_marginEnd="24dp"
+        android:textAppearance="?attr/textAppearanceLabelLarge"
+        android:textColor="?attr/colorOnSurfaceVariant"
+        app:layout_constraintBottom_toBottomOf="@id/closeButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/closeButton"
         tools:text="1/46" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/cardTextView"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:layout_below="@id/counterTextView"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="25dp"
-        android:layout_marginTop="50dp"
-        android:accessibilityLiveRegion="polite"
+    <!-- Cards still in the deck, peeking out behind the current one. -->
+    <View
+        android:id="@+id/deckLayerBottom"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/card_stack"
+        android:elevation="1dp"
+        android:rotation="-6"
+        app:layout_constraintBottom_toBottomOf="@id/cardView"
+        app:layout_constraintEnd_toEndOf="@id/cardView"
+        app:layout_constraintStart_toStartOf="@id/cardView"
+        app:layout_constraintTop_toTopOf="@id/cardView" />
+
+    <View
+        android:id="@+id/deckLayerTop"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/card_stack"
+        android:elevation="2dp"
+        android:rotation="4"
+        app:layout_constraintBottom_toBottomOf="@id/cardView"
+        app:layout_constraintEnd_toEndOf="@id/cardView"
+        app:layout_constraintStart_toStartOf="@id/cardView"
+        app:layout_constraintTop_toTopOf="@id/cardView" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cardView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginBottom="32dp"
         android:background="@drawable/card_front"
         android:clickable="true"
+        android:elevation="6dp"
         android:focusable="true"
-        android:gravity="center"
-        android:maxLines="1"
-        android:padding="16dp"
-        android:textAlignment="center"
-        android:textColor="@android:color/black"
-        app:autoSizeMaxTextSize="125sp"
-        app:autoSizeMinTextSize="24sp"
-        app:autoSizeStepGranularity="2sp"
-        app:autoSizeTextType="uniform"
-        tools:text="あ" />
+        android:padding="20dp"
+        app:layout_constraintBottom_toTopOf="@id/hintTextView"
+        app:layout_constraintDimensionRatio="5:7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/closeButton"
+        app:layout_constraintWidth_max="@dimen/flashcard_max_width">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/scriptTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_pill"
+            android:paddingHorizontal="14dp"
+            android:paddingVertical="6dp"
+            android:textAppearance="@style/TextAppearance.NihongoCards.CardLabel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:backgroundTint="?attr/colorPrimaryContainer"
+            tools:text="Hiragana" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/cardTextView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:accessibilityLiveRegion="polite"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:textAlignment="center"
+            app:autoSizeMaxTextSize="160sp"
+            app:autoSizeMinTextSize="24sp"
+            app:autoSizeStepGranularity="2sp"
+            app:autoSizeTextType="uniform"
+            app:layout_constraintBottom_toTopOf="@id/readingTextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/scriptTextView"
+            tools:text="あ" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/readingTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?attr/textAppearanceHeadlineSmall"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="あ" />
+
+        <!-- Reads the kana aloud. Disabled until the Japanese voice is ready. -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/speakButton"
+            style="?attr/materialIconButtonFilledTonalStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="-4dp"
+            android:layout_marginBottom="-4dp"
+            android:contentDescription="@string/listen_pronunciation"
+            android:enabled="false"
+            android:tooltipText="@string/listen_pronunciation"
+            app:icon="@drawable/ic_volume_up"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/hintTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/cardTextView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:gravity="center"
-        android:textColor="?android:attr/textColorSecondary"
-        android:textSize="16sp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/bg_pill"
+        android:backgroundTint="?attr/colorSurfaceContainerHigh"
+        android:drawablePadding="8dp"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="18dp"
+        android:paddingVertical="10dp"
+        android:textAppearance="?attr/textAppearanceLabelLarge"
+        android:textColor="?attr/colorOnSurfaceVariant"
+        app:drawableStartCompat="@drawable/ic_touch_app"
+        app:drawableTint="?attr/colorOnSurfaceVariant"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         tools:text="@string/tap_to_reveal" />
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

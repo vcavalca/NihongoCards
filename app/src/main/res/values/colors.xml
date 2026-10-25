@@ -2,19 +2,53 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="sixty_opacity_white">#8CFFFFFF</color>
-    <color name="dark_blue">#2b75fa</color>
+    <color name="white_20">#33FFFFFF</color>
     <color name="light_blue">#63aefa</color>
-    <color name="light_grey">#dbd2e0</color>
-    <color name="dark_grey">#666768</color>
-    <color name="transparent">#00000000</color>
-    <color name="light_blue_600">#FF039BE5</color>
-    <color name="light_blue_900">#FF01579B</color>
-    <color name="light_blue_A200">#FF40C4FF</color>
-    <color name="light_blue_A400">#FF00B0FF</color>
     <color name="black_overlay">#66000000</color>
 
-    <color name="colorTrackChecked">#2b75fa</color>
-    <color name="colorTrackUnchecked">#dbd2e0</color>
+    <!-- Material 3 color scheme built from the brand blue (#2b75fa). Dark values live in
+         values-night/colors.xml. The tertiary pink comes from the bear's cheeks. -->
+    <color name="md_primary">#1F5FDB</color>
+    <color name="md_on_primary">#FFFFFF</color>
+    <color name="md_primary_container">#DAE2FF</color>
+    <color name="md_on_primary_container">#0A3A9E</color>
+    <color name="md_inverse_primary">#B2C5FF</color>
+    <color name="md_secondary">#565E71</color>
+    <color name="md_on_secondary">#FFFFFF</color>
+    <color name="md_secondary_container">#DAE2F9</color>
+    <color name="md_on_secondary_container">#3E4759</color>
+    <color name="md_tertiary">#9A3F55</color>
+    <color name="md_on_tertiary">#FFFFFF</color>
+    <color name="md_tertiary_container">#FFD9E0</color>
+    <color name="md_on_tertiary_container">#7C2840</color>
+    <color name="md_error">#BA1A1A</color>
+    <color name="md_on_error">#FFFFFF</color>
+    <color name="md_error_container">#FFDAD6</color>
+    <color name="md_on_error_container">#93000A</color>
+    <color name="md_surface">#FAF9FF</color>
+    <color name="md_on_surface">#1A1B21</color>
+    <color name="md_surface_variant">#E1E2EF</color>
+    <color name="md_on_surface_variant">#44464F</color>
+    <color name="md_surface_dim">#DAD9E0</color>
+    <color name="md_surface_bright">#FAF9FF</color>
+    <color name="md_surface_container_lowest">#FFFFFF</color>
+    <color name="md_surface_container_low">#F4F3FA</color>
+    <color name="md_surface_container">#EEEDF4</color>
+    <color name="md_surface_container_high">#E8E7EF</color>
+    <color name="md_surface_container_highest">#E3E2E9</color>
+    <color name="md_inverse_surface">#2F3036</color>
+    <color name="md_inverse_on_surface">#F1F0F7</color>
+    <color name="md_outline">#747780</color>
+    <color name="md_outline_variant">#C4C6D0</color>
+
+    <!-- Flashcards: the front is a plain sheet, the revealed side uses the brand gradient. -->
+    <color name="flashcard_front">#FFFFFF</color>
+    <color name="flashcard_back_start">#1F5FDB</color>
+    <color name="flashcard_back_end">#4A8FF7</color>
+    <color name="home_gradient_start">#DAE2FF</color>
+    <!-- Cards that sit on the page (deck summary) and the bear's round window. In dark mode
+         they must be lighter than the page, never darker. -->
+    <color name="raised_surface">#FFFFFF</color>
+    <color name="mascot_window">#FFFFFF</color>
 
 </resources>
