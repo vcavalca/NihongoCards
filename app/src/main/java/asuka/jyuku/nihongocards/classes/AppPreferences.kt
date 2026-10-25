@@ -18,6 +18,11 @@ class AppPreferences(context: Context) {
         get() = prefs.getInt(KEY_MUSIC_VOLUME, DEFAULT_VOLUME)
         set(value) = prefs.edit { putInt(KEY_MUSIC_VOLUME, value.coerceIn(0, 100)) }
 
+    /** Reads the kana aloud each time a card is flipped to its reading. */
+    var autoPronounce: Boolean
+        get() = prefs.getBoolean(KEY_AUTO_PRONOUNCE, false)
+        set(value) = prefs.edit { putBoolean(KEY_AUTO_PRONOUNCE, value) }
+
     /** Alphabets used in the game. Never empty: falls back to Hiragana. */
     var selectedScripts: Set<Script>
         get() = buildSet {
@@ -39,6 +44,7 @@ class AppPreferences(context: Context) {
         const val KEY_MUSIC_VOLUME = "music_volume"
         const val KEY_HIRAGANA = "hiragana_enabled"
         const val KEY_KATAKANA = "katakana_enabled"
+        const val KEY_AUTO_PRONOUNCE = "auto_pronounce"
         const val DEFAULT_VOLUME = 50
     }
 }

@@ -43,6 +43,7 @@ class MusicPlayer(
     private var isPrepared = false
     private var isInForeground = false
     private var hasAudioFocus = false
+    private var isDucked = false
 
     val isEnabled: Boolean get() = preferences.musicEnabled
     val volume: Int get() = preferences.musicVolume
@@ -102,7 +103,15 @@ class MusicPlayer(
         when (change) {
             AudioManager.AUDIOFOCUS_GAIN -> {
                 hasAudioFocus = true
+                isDucked = false
+                applyVolume()
                 updatePlayback()
+            }
+            // Something short must be heard over the music (e.g. a kana read aloud). Android
+            // does not duck automatically when that request comes from this same app.
+            AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK -> {
+                isDucked = true
+                applyVolume()
             }
             // Another app took the focus for good (e.g. a music app): stop until we are
             // brought back to the foreground.
@@ -136,7 +145,7 @@ class MusicPlayer(
     }
 
     private fun applyVolume() {
-        val level = preferences.musicVolume / 100f
+        val level = preferences.musicVolume / 100f * if (isDucked) DUCKED_VOLUME_FACTOR else 1f
         if (isPrepared) player?.setVolume(level, level)
     }
 
@@ -144,5 +153,9 @@ class MusicPlayer(
         player?.release()
         player = null
         isPrepared = false
+    }
+
+    private companion object {
+        const val DUCKED_VOLUME_FACTOR = 0.10f
     }
 }

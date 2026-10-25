@@ -6,4 +6,10 @@
     <dimen name="padding_small">5.333333333333333dp</dimen>
     <dimen name="padding_medium">10.66666666666667dp</dimen>
     <dimen name="padding_large">16dp</dimen>
+
+    <dimen name="screen_padding">24dp</dimen>
+    <dimen name="content_max_width">480dp</dimen>
+    <dimen name="card_corner_radius">24dp</dimen>
+    <dimen name="flashcard_corner_radius">32dp</dimen>
+    <dimen name="flashcard_max_width">340dp</dimen>
 </resources>

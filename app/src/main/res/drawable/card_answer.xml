@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Revealed side of the card (romaji). -->
+<!-- Revealed side of the card (romaji), painted with the brand gradient. -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="@color/light_blue" />
-    <stroke
-        android:width="2dp"
-        android:color="@android:color/black" />
-    <corners android:radius="8dp" />
+    <gradient
+        android:angle="315"
+        android:endColor="@color/flashcard_back_end"
+        android:startColor="@color/flashcard_back_start"
+        android:type="linear" />
+    <corners android:radius="@dimen/flashcard_corner_radius" />
 </shape>

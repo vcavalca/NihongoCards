@@ -4,4 +4,18 @@
         <item name="android:background">@color/black_overlay</item>
         <item name="android:buttonBarStyle">?android:attr/buttonBarStyle</item>
     </style>
+
+    <!-- Selectable card used to pick the alphabets in the settings. -->
+    <style name="Widget.NihongoCards.AlphabetCard" parent="Widget.Material3.CardView.Outlined">
+        <item name="android:checkable">true</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="cardBackgroundColor">?attr/colorSurfaceContainerLow</item>
+        <item name="cardCornerRadius">@dimen/card_corner_radius</item>
+        <item name="cardForegroundColor">@color/alphabet_card_overlay</item>
+        <item name="strokeColor">@color/alphabet_card_stroke</item>
+        <item name="strokeWidth">2dp</item>
+        <item name="checkedIconTint">?attr/colorPrimary</item>
+        <item name="checkedIconMargin">12dp</item>
+    </style>
 </resources>

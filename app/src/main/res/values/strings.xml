@@ -27,4 +27,24 @@
     <string name="tap_for_next">Tap for the next card</string>
     <string name="tap_to_finish">Tap to finish</string>
 
+    <!-- Redesign -->
+    <string name="tagline">Learn hiragana and katakana, one card at a time</string>
+    <string name="current_deck">Current deck</string>
+    <plurals name="deck_card_count">
+        <item quantity="one">%d card</item>
+        <item quantity="other">%d cards</item>
+    </plurals>
+    <string name="close_game">Close game</string>
+    <string name="navigate_back">Back</string>
+    <string name="section_alphabets">Alphabets</string>
+    <string name="section_sound">Sound</string>
+    <string name="music_description">Background soundtrack</string>
+
+    <!-- Pronunciation -->
+    <string name="listen_pronunciation">Listen to the pronunciation</string>
+    <string name="auto_pronounce">Auto pronunciation</string>
+    <string name="auto_pronounce_description">Reads the kana aloud when the card flips</string>
+    <string name="japanese_voice_missing">The Japanese voice is not installed</string>
+    <string name="install_voice">Install</string>
+
 </resources>
